@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'routes/app_routes.dart';
@@ -10,17 +11,19 @@ class MainAppEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "Practice API",
-      enableLog: true,
-      initialRoute: AppRoutes.initial,
-      theme: appThemeData,
-      getPages: appRoutesFile,
-      defaultTransition: Transition.zoom,
-      themeMode: ThemeMode.light,
-      defaultGlobalState: true,
-      transitionDuration: const Duration(microseconds: 250),
+    return ScreenUtilInit(
+      child: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: "Practice API",
+        enableLog: true,
+        initialRoute: AppRoutes.initial,
+        theme: appThemeData,
+        getPages: appRoutesFile,
+        defaultTransition: Transition.zoom,
+        themeMode: ThemeMode.light,
+        defaultGlobalState: true,
+        transitionDuration: const Duration(microseconds: 250),
+      ),
     );
   }
 }

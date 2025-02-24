@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart'; // Import GetX package
-import 'dart:async'; // Import Timer
-import 'package:loginsignup/widget/texts/custom_text.dart'; // Assuming this is your custom text widget
+import 'package:get/get.dart';
+import 'package:loginsignup/screen/splashScreen/controller/splash_screen_controller.dart';
+import 'package:loginsignup/utils/gap/app_size.dart';
+import 'package:loginsignup/widget/texts/custom_text.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    AppSize.size = size;
     return GetBuilder(
-      init: SplashController(), // Initialize the controller
+      init: SplashScreenController(), // Initialize the controller
       builder: (controller) {
         return Scaffold(
           body: Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
-                colors: [Colors.deepOrange, Colors.greenAccent],
+                colors: [Colors.black, Colors.green],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),
@@ -40,35 +43,6 @@ class SplashScreen extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-// SplashController to manage state and navigation
-class SplashController extends GetxController {
-  @override
-  void onInit() {
-    super.onInit();
-    // Navigate to BottomNavBar after 1 second
-    Timer(const Duration(seconds: 4), () {
-      // Replace `userType` with the actual value or logic to determine it
-      String userType = "defaultUser"; // Example value
-      Get.offAll(() => BottomNavBar(), arguments: userType);
-    });
-  }
-}
-
-// Placeholder for BottomNavBar (replace with your actual widget)
-class BottomNavBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Bottom Navigation Bar'),
-      ),
-      body: const Center(
-        child: Text('Bottom Navigation Bar Screen'),
-      ),
     );
   }
 }

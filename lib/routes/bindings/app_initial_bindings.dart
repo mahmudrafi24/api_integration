@@ -7,6 +7,5 @@ class AppInitialBindings extends Bindings {
   dependencies() {
     Get.lazyPut(()=> SplashScreenController());
     Get.lazyPut(() => ErrorScreenController());
-
   }
 }
