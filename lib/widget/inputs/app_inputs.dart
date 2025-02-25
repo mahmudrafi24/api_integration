@@ -4,7 +4,8 @@ import 'package:loginsignup/const/app_colors.dart';
 import 'package:loginsignup/utils/gap/app_size.dart';
 
 class AppInputWidget extends StatefulWidget {
-  const AppInputWidget(
+  const 
+  AppInputWidget(
       {super.key,
       this.hintText,
       this.prefix,

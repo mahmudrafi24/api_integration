@@ -1,25 +1,25 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:loginsignup/services/api/api.dart';
 import 'package:loginsignup/widget/snackBar/app_snackbar.dart';
 
-
-class ApiPutServices {
+class ApiGetServices {
   final api = AppApi();
 
-  apiPutServices({
-    required String url,
-    dynamic body,
+  apiGetServices(
+    String url, {
+    String? token,
     int statusCode = 200,
-    Map<String, dynamic>? query,
+    Map<String, dynamic>? queryParameters,
   }) async {
     try {
-      final response = await api.sendRequest.put(
+      final response = await api.sendRequest.get(
         url,
-        data: body,
-        queryParameters: query,
+        queryParameters: queryParameters,
+        options: Options(headers: {"Authorization": "Bearer $token"}),
       );
       if (response.statusCode == statusCode) {
         return response.data;

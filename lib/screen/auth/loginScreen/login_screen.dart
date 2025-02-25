@@ -33,143 +33,171 @@ class LoginScreen extends StatelessWidget {
           ),
           body: SingleChildScrollView(
             padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: CustomText(
-                    text: "Login",
-                    fontSize: 24,
-                    fontWeight: FontWeight.w500,
+            child: Form(
+              key: controller.loginKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: CustomText(
+                      text: "Login",
+                      fontSize: 24,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                ),
-                Gap(
-                  height: 20.h,
-                ),
-                CustomText(
-                  text: "Email",
-                  fontFamily: 1,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                ),
-                Gap(
-                  height: 10.h,
-                ),
-                AppInputWidget(
-                  hintText: "Enter your email",
-                  keyboardType: TextInputType.emailAddress,
-                  fillColor: AppColors.black50,
-                  filled: true,
-                  maxLines: 1,
-                  isEmail: true,
-                ),
-                Gap(
-                  height: 20.h,
-                ),
-                CustomText(
-                  text: "Password",
-                  fontFamily: 1,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                ),
-                Gap(
-                  height: 10.h,
-                ),
-                AppInputWidget(
-                  hintText: "Enter the password",
-                  keyboardType: TextInputType.visiblePassword,
-                  fillColor: AppColors.black50,
-                  filled: true,
-                  maxLines: 1,
-                  isPassWord: true,
-                ),
-                Gap(
-                  height: 20.h,
-                ),
-
-                // Checkbox with GetBuilder
-                Row(
-                  children: [
-                    Checkbox(
-                      value: controller.isChecked,
-                      onChanged: (bool? newValue) {
-                        controller.toggleCheckbox(newValue);
-                      },
-                      activeColor: AppColors.black600,
-                    ),
-                    SizedBox(
-                      width: 5.w,
-                    ),
-                    CustomText(
-                      text: "Remember me",
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.black600,
-                      fontFamily: 2,
-                      maxLines: 3,
-                    ),
-                    Spacer(),
-                    GestureDetector(
-                      onTap: () {
-                        Get.toNamed(AppRoutes.forgotPassword);
-                      },
-                      child: CustomText(
-                        text: "Forgot Password?",
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.green,
-                        fontFamily: 1,
-                      ),
-                    )
-                  ],
-                ),
-
-                Gap(
-                  height: 25.h,
-                ),
-                CustomButton(
-                  height: 40,
-                  onTap: () {},
-                  fillColor: controller.isChecked
-                      ? AppColors.black700
-                      : AppColors.gray,
-                  textColor: AppColors.white100,
-                  title: "Login",
-                ),
-                Gap(
-                  height: 20.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CustomText(
-                      text: "Or",
-                    ),
-                  ],
-                ),
-                Gap(
-                  height: 20.h,
-                ),
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Gap(
+                    height: 20.h,
+                  ),
                   CustomText(
-                    text: "Don't have an account?",
+                    text: "Email",
                     fontFamily: 1,
+                    fontSize: 12,
                     fontWeight: FontWeight.w500,
                   ),
                   Gap(
-                    width: 3.w,
+                    height: 10.h,
                   ),
-                  GestureDetector(
-                    onTap: () => Get.toNamed(AppRoutes.signUp),
-                    child: CustomText(
-                      text: "Sign Up",
+                  AppInputWidget(
+                    controller: controller.emailTextEditingController,
+                    hintText: "Enter your email",
+                    keyboardType: TextInputType.emailAddress,
+                    fillColor: AppColors.black50,
+                    filled: true,
+                    maxLines: 1,
+                    isEmail: true,
+                  ),
+                  Gap(
+                    height: 20.h,
+                  ),
+                  CustomText(
+                    text: "Password",
+                    fontFamily: 1,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  Gap(
+                    height: 10.h,
+                  ),
+                  AppInputWidget(
+                    controller: controller.passwordTextEditingController,
+                    hintText: "Enter the password",
+                    keyboardType: TextInputType.visiblePassword,
+                    fillColor: AppColors.black50,
+                    filled: true,
+                    maxLines: 1,
+                    isPassWord: true,
+                  ),
+                  Gap(
+                    height: 20.h,
+                  ),
+                  // Checkbox with GetBuilder
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Obx(
+                            () => Theme(
+                              data: ThemeData(
+                                unselectedWidgetColor: AppColors.green,
+                              ),
+                              child: Checkbox(
+                                activeColor: AppColors.white50,
+                                visualDensity: const VisualDensity(
+                                    horizontal: -4, vertical: -4),
+                                side: WidgetStateBorderSide.resolveWith(
+                                  (states) {
+                                    if (states.contains(WidgetState.selected)) {
+                                      return const BorderSide(
+                                          color: AppColors.white100);
+                                    } else {
+                                      return const BorderSide(
+                                          color: AppColors.black700);
+                                    }
+                                  },
+                                ),
+                                value: controller.isRememberme.value,
+                                checkColor: AppColors.green,
+                                fillColor: const WidgetStatePropertyAll(
+                                    AppColors.white100),
+                                shape: RoundedRectangleBorder(
+                                    side: const BorderSide(
+                                        color: AppColors.green),
+                                    borderRadius: BorderRadius.circular(
+                                        AppSize.width(value: 5.0))),
+                                onChanged: (value) {
+                                  controller.isRememberme.value = value!;
+                                },
+                              ),
+                            ),
+                          ),
+                          const CustomText(
+                            text: "Remember me",
+                            color: AppColors.black800,
+                          )
+                        ],
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Get.toNamed(AppRoutes.forgotPassword);
+                        },
+                        child: const CustomText(
+                          text: "Forgot Password ?",
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.green,
+                        ),
+                      )
+                    ],
+                  ),
+                  Gap(
+                    height: 25.h,
+                  ),
+                  CustomButton(
+                    height: 40,
+                    onTap: () {
+                      controller.clickLoginButton();
+                    },
+                    fillColor: controller.isRememberme.value
+                        ? AppColors.gray
+                        : AppColors.black700,
+                    textColor: AppColors.white100,
+                    title: "Login",
+                  ),
+                  Gap(
+                    height: 20.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CustomText(
+                        text: "Or",
+                      ),
+                    ],
+                  ),
+                  Gap(
+                    height: 20.h,
+                  ),
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    CustomText(
+                      text: "Don't have an account?",
                       fontFamily: 1,
                       fontWeight: FontWeight.w500,
-                      color: AppColors.green,
                     ),
-                  )
-                ])
-              ],
+                    Gap(
+                      width: 3.w,
+                    ),
+                    GestureDetector(
+                      onTap: () => Get.toNamed(AppRoutes.signUp),
+                      child: CustomText(
+                        text: "Sign Up",
+                        fontFamily: 1,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.green,
+                      ),
+                    )
+                  ])
+                ],
+              ),
             ),
           ),
         );

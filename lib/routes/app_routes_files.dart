@@ -65,4 +65,5 @@ List<GetPage> appRoutesFile = <GetPage>[
     binding: AppAuthBindings(),
     middlewares: [InternetCheckMiddleWare()],
   ),
+
 ];

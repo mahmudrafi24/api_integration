@@ -38,7 +38,7 @@ class ResetPasswordScreen extends StatelessWidget {
               height: 20.h,
             ),
             CustomText(
-              text: "Password",
+              text: "New Password",
               fontFamily: 1,
               fontSize: 12,
               fontWeight: FontWeight.w500,
@@ -47,7 +47,7 @@ class ResetPasswordScreen extends StatelessWidget {
               height: 10.h,
             ),
             AppInputWidget(
-              hintText: "Enter the password",
+              hintText: "Enter new password",
               keyboardType: TextInputType.visiblePassword,
               fillColor: AppColors.black50,
               filled: true,
@@ -57,7 +57,7 @@ class ResetPasswordScreen extends StatelessWidget {
               height: 20.h,
             ),
             CustomText(
-              text: "Password",
+              text: "Re-Enter Password",
               fontFamily: 1,
               fontSize: 12,
               fontWeight: FontWeight.w500,
@@ -66,11 +66,13 @@ class ResetPasswordScreen extends StatelessWidget {
               height: 10.h,
             ),
             AppInputWidget(
-              hintText: "Enter the password",
+              hintText: "Enter confirm password",
               keyboardType: TextInputType.visiblePassword,
               fillColor: AppColors.black50,
               filled: true,
               maxLines: 1,
+              isPassWord: true,
+
             ),
             Gap(
               height: 25.h,

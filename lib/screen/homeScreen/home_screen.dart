@@ -7,7 +7,12 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: CustomText(text: "Home Screen"),),
+      appBar: AppBar(
+        title: CustomText(text: "Home Screen"),
+      ),
+      body: Center(
+        child: Text('Welcome to the Home Screen!'),
+      ),
     );
   }
 }

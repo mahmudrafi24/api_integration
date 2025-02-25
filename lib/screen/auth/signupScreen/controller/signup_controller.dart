@@ -1,6 +1,7 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import 'package:loginsignup/const/api_url.dart';
 import 'package:loginsignup/routes/app_routes.dart';
 import 'package:loginsignup/widget/snackBar/app_snackbar.dart';
@@ -19,23 +20,35 @@ class SignupController extends GetxController {
         isLoading.value = true;
 
         Map<String, dynamic> signupData = {
-          "fullName": fullNameTextEditingController.text,
-          "email": emailTextEditingController.text,
-          "password": passwordTextEditingController.text,
+          "fullName": fullNameTextEditingController.text.trim(),
+          "email": emailTextEditingController.text.trim(),
+          "password": passwordTextEditingController.text.trim(),
           "role": "USER",
         };
-        final response = await post(AppUrl.signupUrl as Uri, body: signupData);
-        if (response.statusCode == 200) {
+
+        final response = await http.post(
+          Uri.parse(AppUrl.signupUrl),
+          body: jsonEncode(signupData),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        );
+
+        if (response.statusCode == 200 || response.statusCode == 201) {
           AppSnackBar.success("Signup Successfully");
           isLoading.value = false;
           Get.toNamed(AppRoutes.otpScreen,
               arguments: {"email": emailTextEditingController.text});
 
-          debugPrint(signupData.toString());
+          debugPrint("Signup Data: ${signupData.toString()}");
+          debugPrint("Response Body: ${response.body}");
+        } else {
+          AppSnackBar.error(
+              "Signup failed. Status Code: ${response.statusCode}\nResponse: ${response.body}");
         }
       }
     } catch (e) {
-      AppSnackBar.error(e.toString());
+      AppSnackBar.error("Error: ${e.toString()}");
     } finally {
       isLoading.value = false;
     }
